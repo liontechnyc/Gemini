@@ -1,0 +1,69 @@
+{
+  "name": "gemini",
+  "private": true,
+  "description": "LionTechNYC frontend engineering stack with unobtrusive UI and UX support",
+  "version": "0.1.0",
+  "author": "Ezra Singh <ezra@liontech.nyc>",
+  "keywords": [
+    "gatsby",
+    "react",
+    "typescript",
+    "frontend"
+  ],
+  "license": "GPLv2",
+  "main": "build/index.js",
+  "module": "build/index.es.js",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "storybook": "start-storybook -p 5005",
+    "storybook:export": "build-storybook",
+    "format": "tslint \"{src}/**/*.{ts,tsx}\" --quiet --fix || prettier --write \"*/**/*.{js,json,md,scss}\"",
+    "lint-staged": "tslint \"src/**/*.{js,ts,tsx}\" --fix || prettier --write \"*/**/*.{js,json,md,scss}\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:liontechnyc/clients/versatile/versatile-app.git"
+  },
+  "bugs": {
+    "url": "https://liontech.nyc"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "@storybook/react": "^5.3.19",
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.4",
+    "@types/jest": "^26.0.4",
+    "@types/react": "^16.9.41",
+    "babel-loader": "^8.1.0",
+    "babel-preset-react-app": "^9.1.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.1.0",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rollup": "^2.20.0",
+    "rollup-plugin-peer-deps-external": "^2.2.3",
+    "rollup-plugin-postcss": "^3.1.2",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "sass-loader": "^9.0.1",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.6"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  }
+}
