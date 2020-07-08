@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 
 import Content, { ContentProps } from './Content';
 
-describe('Section', () => {
+describe('Content', () => {
   let props: ContentProps;
 
   beforeEach(() => {
