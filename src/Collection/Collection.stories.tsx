@@ -52,7 +52,7 @@ export const WithHorizontalAlignCenter = () => (
 );
 
 export const WithHorizontalReverseItems = () => (
-  <Collection {...mockProps('vertical', { horizontal: 'center' }, true)} />
+  <Collection {...mockProps('horizontal', { horizontal: 'center' }, true)} />
 );
 
 export const Vertical = () => <Collection {...mockProps('vertical')} />;

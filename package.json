@@ -22,8 +22,8 @@
     "storybook:export": "build-storybook",
     "format": "tslint \"{src}/**/*.{ts,tsx}\" --quiet --fix || prettier --write \"*/**/*.{js,json,md,scss}\"",
     "lint-staged": "tslint \"src/**/*.{js,ts,tsx}\" --fix || prettier --write \"*/**/*.{js,json,md,scss}\"",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --silent",
+    "test:watch": "jest --watch --silent",
     "type-check": "tsc --noEmit"
   },
   "repository": {
@@ -68,5 +68,8 @@
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   }
 }

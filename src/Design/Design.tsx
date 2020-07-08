@@ -25,15 +25,15 @@ export interface DesignProps {
 }
 
 /** Reduce template structure into CSS valid template syntax */
-function reduceLayout(
+export function reduceLayout(
   layout: DesignLayoutTemplate
 ): { gridTemplateAreas: string } {
   const templateAreas: string = layout.reduce(
-    (template: string, layoutRow: string[]) => {
+    (template: string, layoutRow: string[], cur: number) => {
       return (
         template + `'` +
         layoutRow.map((elementName) => `${elementName}`).join(' ') +
-        `' `
+        `'${cur < layout.length - 1 ? ' ' : ''}`
       );
     },
     ``
@@ -42,7 +42,7 @@ function reduceLayout(
 }
 
 /** Reduce grid axis into CSS valid template syntax */
-function reduceGridTemplate(
+export function reduceGridTemplate(
   grid: DesignGridAxis
 ): { gridTemplateRows: string; gridTemplateColumns: string } {
   const format = (axis: (number | string)[]) =>
@@ -76,11 +76,11 @@ const Design = ({
     maxHeight: is === 'ui' ? '100vh' : undefined,
     overflowY: (is === 'ui' && 'hidden') || (noVerticalScroll ? 'hidden' : 'auto'),
     overflowX: noHorizontalScroll ? 'hidden' : 'auto',
-    gridGap: gutter ? gutter : undefined
   });
   const designStyle: React.CSSProperties = {
     ...reduceLayout(layout as DesignLayoutTemplate),
     ...reduceGridTemplate(grid as DesignGridAxis),
+    gridGap: gutter ? gutter : undefined
   };
   return (
     <DesignContainer

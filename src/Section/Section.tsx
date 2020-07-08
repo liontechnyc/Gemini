@@ -17,15 +17,16 @@ const Section = ({
   containerStyle,
   children,
 }: SectionProps) => {
-  const SectionContainer = styled.section`
-    display: flex;
-    ${fluid && 'flex: 1;'}
-  `;
+  const SectionContainer = styled.section({
+    display: 'flex',
+    flex: fluid ? '1 0 auto' : undefined,
+    gridArea: name,
+  })
   return (
     <SectionContainer
       id={name}
       className={containerClass}
-      style={{ ...{ gridArea: name }, ...containerStyle }}
+      style={containerStyle}
     >
       {children}
     </SectionContainer>
