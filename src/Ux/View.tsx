@@ -1,0 +1,18 @@
+import { createMedia } from '@artsy/fresnel';
+
+const AppMedia = createMedia({
+  breakpoints: {
+    sm: 0,
+    md: 768,
+    lg: 1024,
+    xl: 1192,
+  },
+});
+
+const { MediaContextProvider, Media } = AppMedia;
+
+// Generate CSS to be injected into the head
+export const mediaStyle = AppMedia.createMediaStyle();
+
+export default Media;
+export { MediaContextProvider };

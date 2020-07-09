@@ -39,6 +39,7 @@
     }
   },
   "devDependencies": {
+    "@artsy/fresnel": "^1.2.0",
     "@babel/core": "^7.10.4",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
@@ -67,7 +68,8 @@
   },
   "peerDependencies": {
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react-dom": ">=16.8.0",
+    "@artsy/fresnel": ">=1.2.0"
   },
   "resolutions": {
     "styled-components": "^5"
