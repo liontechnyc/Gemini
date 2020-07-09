@@ -1,5 +1,5 @@
 import React from 'react';
-/** Wrap UX providers (SSR included) */
+/** Root context provider */
 declare const Provider: ({ children }: {
     children: React.ReactNode;
 }) => JSX.Element;

@@ -2689,7 +2689,7 @@ var ModalProvider = function (_a) {
         React__default.createElement("div", { ref: modalRef })));
 };
 
-/** Wrap UX providers (SSR included) */
+/** Root context provider */
 var Provider = function (_a) {
     var children = _a.children;
     return (React__default.createElement(MediaContextProvider, null,
@@ -2703,6 +2703,7 @@ var index$1 = /*#__PURE__*/Object.freeze({
   mediaStyle: mediaStyle
 });
 
+/** A container for wrapping design elements */
 var Block = function (_a) {
     var renderAs = _a.renderAs, fluid = _a.fluid, centered = _a.centered, isBlockLike = _a.isBlockLike, inline = _a.inline, className = _a.className, style = _a.style, children = _a.children;
     var wrapperStyle = {
@@ -2721,6 +2722,7 @@ var Block = function (_a) {
     return React.createElement(renderAs || 'div', { className: className, style: __assign(__assign({}, wrapperStyle), style) }, children);
 };
 
+/** A container for wrapping structured textual information */
 var Content = function (_a) {
     var title = _a.title, subtitle = _a.subtitle, description = _a.description, alignTitle = _a.alignTitle, alignContent = _a.alignContent, titleClass = _a.titleClass, contentClass = _a.contentClass, containerClass = _a.containerClass, containerStyle = _a.containerStyle, children = _a.children;
     var wrapperStyle = __assign({ display: 'block' }, containerStyle);
@@ -2764,7 +2766,7 @@ function mapAlignToFlex(align, direction) {
             alignContent: 'start',
         };
 }
-/** Responsive 1-dimensional flex container */
+/** 1-Dimensional Flex container to display item arrangements */
 var Collection = function (_a) {
     var renderAs = _a.renderAs, fluid = _a.fluid, direction = _a.direction, align = _a.align, reverse = _a.reverse, items = _a.items, containerStyle = _a.containerStyle, containerClass = _a.containerClass, itemStyle = _a.itemStyle, itemClass = _a.itemClass, emptyState = _a.emptyState;
     var wrapperStyle = __assign(__assign(__assign({ display: 'flex', flex: Number(fluid) || undefined }, mapDirectionToFlex(direction, !!reverse)), mapAlignToFlex(align, direction)), containerStyle);
@@ -2799,7 +2801,7 @@ function reduceGridTemplate(grid) {
         gridTemplateColumns: format(grid.x),
     };
 }
-/** Responsive 2-dimensional container */
+/** 2-Dimensional Flex container for templating UI designs */
 var Design = function (_a) {
     var layout = _a.layout, grid = _a.grid, is = _a.is, gutter = _a.gutter, noHorizontalScroll = _a.noHorizontalScroll, noVerticalScroll = _a.noVerticalScroll, containerClass = _a.containerClass, containerStyle = _a.containerStyle, children = _a.children;
     var DesignContainer = styled.main({
@@ -2814,6 +2816,7 @@ var Design = function (_a) {
     return (React__default.createElement(DesignContainer, { className: containerClass, style: __assign(__assign({}, designStyle), containerStyle) }, children));
 };
 
+/** A container for wrapping images */
 var Image = function (_a) {
     var src = _a.src, defaultImg = _a.defaultImg, square = _a.square, width = _a.width, height = _a.height, caption = _a.caption, children = _a.children;
     var ImageContainer = styled.figure(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    display: block;\n    position: relative;\n  "], ["\n    display: block;\n    position: relative;\n  "])));
@@ -2830,7 +2833,7 @@ var Image = function (_a) {
 };
 var templateObject_1, templateObject_2;
 
-/** Used to compose elements within Design grid */
+/** An organizational unit for templating with <Design/> */
 var Section = function (_a) {
     var name = _a.name, fluid = _a.fluid, containerClass = _a.containerClass, containerStyle = _a.containerStyle, children = _a.children;
     var SectionContainer = styled.section({

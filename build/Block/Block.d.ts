@@ -9,5 +9,6 @@ export interface BlockProps {
     style?: React.CSSProperties;
     children?: React.ReactNode;
 }
+/** A container for wrapping design elements */
 declare const Block: ({ renderAs, fluid, centered, isBlockLike, inline, className, style, children, }: BlockProps) => React.ReactElement<any, string | ((props: any) => React.ReactElement<any, string | any | (new (props: any) => React.Component<any, any, any>)>) | (new (props: any) => React.Component<any, any, any>)>;
 export default Block;

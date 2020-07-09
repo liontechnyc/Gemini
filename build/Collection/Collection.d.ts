@@ -18,6 +18,6 @@ export interface CollectionProps {
     itemClass?: string;
     emptyState?: React.ReactElement;
 }
-/** Responsive 1-dimensional flex container */
+/** 1-Dimensional Flex container to display item arrangements */
 declare const Collection: ({ renderAs, fluid, direction, align, reverse, items, containerStyle, containerClass, itemStyle, itemClass, emptyState, }: CollectionProps) => JSX.Element;
 export default Collection;

@@ -26,7 +26,7 @@ export declare function reduceGridTemplate(grid: DesignGridAxis): {
     gridTemplateRows: string;
     gridTemplateColumns: string;
 };
-/** Responsive 2-dimensional container */
+/** 2-Dimensional Flex container for templating UI designs */
 declare const Design: ({ layout, grid, is, gutter, noHorizontalScroll, noVerticalScroll, containerClass, containerStyle, children, }: DesignProps) => JSX.Element;
 export declare const withDesign: (layout: DesignLayoutTemplate, grid: DesignGridAxis, containerStyle: React.CSSProperties) => (Component: React.ComponentType) => (props: React.Props<any>) => JSX.Element;
 export default Design;

@@ -9,5 +9,6 @@ export interface ImageProps {
     caption?: string;
     children?: React.ReactNode;
 }
+/** A container for wrapping images */
 declare const Image: ({ src, defaultImg, square, width, height, caption, children, }: ImageProps) => JSX.Element;
 export default Image;

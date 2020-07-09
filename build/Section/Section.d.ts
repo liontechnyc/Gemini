@@ -6,6 +6,6 @@ export interface SectionProps {
     containerStyle?: React.CSSProperties;
     children?: React.ReactNode;
 }
-/** Used to compose elements within Design grid */
+/** An organizational unit for templating with <Design/> */
 declare const Section: ({ name, fluid, containerClass, containerStyle, children, }: SectionProps) => JSX.Element;
 export default Section;
