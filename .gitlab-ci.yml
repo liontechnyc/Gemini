@@ -18,3 +18,14 @@ test:
     - npm ci
     # Run Jest in CI mode
     - npm test -- --ci
+
+# Publish package
+publish:
+  dependencies:
+    - test
+  only:
+    refs:
+      - master
+  script:
+    # Publish to NPM
+    - npm publish --access public
