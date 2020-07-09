@@ -1,3 +1,4 @@
+export { default as Block } from './Block/Block';
 export { default as Content } from './Content/Content';
 export { default as Collection } from './Collection/Collection';
 export { default as Design } from './Design/Design';
