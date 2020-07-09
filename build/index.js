@@ -7,7 +7,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var React = require('react');
 var React__default = _interopDefault(React);
 var fresnel = require('@artsy/fresnel');
-require('react-dom');
+var ReactDOM = _interopDefault(require('react-dom'));
 
 var AppMedia = fresnel.createMedia({
     breakpoints: {
@@ -2688,6 +2688,16 @@ var ModalProvider = function (_a) {
         React__default.createElement(Context.Provider, { value: context }, children),
         React__default.createElement("div", { ref: modalRef })));
 };
+/** A container for wrapping overlays or popups */
+var Modal = function (_a) {
+    var visible = _a.visible, popup = _a.popup, layer = _a.layer, children = _a.children;
+    var modalNode = React.useContext(Context);
+    var Container = styled.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    display: ", ";\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: ", ";\n    justify-content: ", ";\n    align-items: ", ";\n  "], ["\n    display: ", ";\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: ", ";\n    justify-content: ", ";\n    align-items: ", ";\n  "])), visible ? 'flex' : 'none', layer || 100, popup ? 'center' : 'initial', popup ? 'center' : 'initial');
+    return modalNode && visible
+        ? ReactDOM.createPortal(React__default.createElement(Container, null, children), modalNode)
+        : null;
+};
+var templateObject_1;
 
 /** Root context provider */
 var Provider = function (_a) {
@@ -2720,23 +2730,6 @@ var Block = function (_a) {
         margin: isBlockLike && centered ? '0 auto' : undefined,
     };
     return React.createElement(renderAs || 'div', { className: className, style: __assign(__assign({}, wrapperStyle), style) }, children);
-};
-
-/** A container for wrapping structured textual information */
-var Content = function (_a) {
-    var title = _a.title, subtitle = _a.subtitle, description = _a.description, alignTitle = _a.alignTitle, alignContent = _a.alignContent, titleClass = _a.titleClass, contentClass = _a.contentClass, containerClass = _a.containerClass, containerStyle = _a.containerStyle, children = _a.children;
-    var wrapperStyle = __assign({ display: 'block' }, containerStyle);
-    var titleStyle = {
-        textAlign: alignTitle || 'left',
-    };
-    var contentStyle = {
-        textAlign: alignContent || 'left',
-    };
-    return (React__default.createElement("div", { className: containerClass, style: wrapperStyle },
-        title && (React__default.createElement(React__default.Fragment, null,
-            React__default.createElement("h3", { style: titleStyle, className: titleClass }, title),
-            subtitle && React__default.createElement("em", null, subtitle))),
-        React__default.createElement("div", { className: contentClass, style: contentStyle }, description ? React__default.createElement("p", null, description) : children)));
 };
 
 function mapDirectionToFlex(direction, reverse) {
@@ -2776,6 +2769,23 @@ var Collection = function (_a) {
         }
     }
     return emptyState || React__default.createElement(React__default.Fragment, null);
+};
+
+/** A container for wrapping structured textual information */
+var Content = function (_a) {
+    var title = _a.title, subtitle = _a.subtitle, description = _a.description, alignTitle = _a.alignTitle, alignContent = _a.alignContent, titleClass = _a.titleClass, contentClass = _a.contentClass, containerClass = _a.containerClass, containerStyle = _a.containerStyle, children = _a.children;
+    var wrapperStyle = __assign({ display: 'block' }, containerStyle);
+    var titleStyle = {
+        textAlign: alignTitle || 'left',
+    };
+    var contentStyle = {
+        textAlign: alignContent || 'left',
+    };
+    return (React__default.createElement("div", { className: containerClass, style: wrapperStyle },
+        title && (React__default.createElement(React__default.Fragment, null,
+            React__default.createElement("h3", { style: titleStyle, className: titleClass }, title),
+            subtitle && React__default.createElement("em", null, subtitle))),
+        React__default.createElement("div", { className: contentClass, style: contentStyle }, description ? React__default.createElement("p", null, description) : children)));
 };
 
 /** Reduce template structure into CSS valid template syntax */
@@ -2819,7 +2829,7 @@ var Design = function (_a) {
 /** A container for wrapping images */
 var Image = function (_a) {
     var src = _a.src, defaultImg = _a.defaultImg, square = _a.square, width = _a.width, height = _a.height, caption = _a.caption, children = _a.children;
-    var ImageContainer = styled.figure(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    display: block;\n    position: relative;\n  "], ["\n    display: block;\n    position: relative;\n  "])));
+    var ImageContainer = styled.figure(templateObject_1$1 || (templateObject_1$1 = __makeTemplateObject(["\n    display: block;\n    position: relative;\n  "], ["\n    display: block;\n    position: relative;\n  "])));
     var ImageWrapper = styled.img(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    display: block;\n    position: relative;\n  "], ["\n    display: block;\n    position: relative;\n  "])));
     var imageStyle = {
         width: width ? width + 'px' : '100%',
@@ -2831,7 +2841,7 @@ var Image = function (_a) {
         React__default.createElement(ImageWrapper, __assign({ src: defaultImg, style: imageStyle }, { height: height, width: width })),
         React__default.createElement("figcaption", null, caption ? React__default.createElement("p", null, caption) : children)));
 };
-var templateObject_1, templateObject_2;
+var templateObject_1$1, templateObject_2;
 
 /** An organizational unit for templating with <Design/> */
 var Section = function (_a) {
@@ -2849,6 +2859,7 @@ exports.Collection = Collection;
 exports.Content = Content;
 exports.Design = Design;
 exports.Image = Image;
+exports.Modal = Modal;
 exports.Section = Section;
 exports.UX = index$1;
 //# sourceMappingURL=index.js.map
