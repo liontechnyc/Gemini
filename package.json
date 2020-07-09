@@ -1,5 +1,5 @@
 {
-  "name": "gemini",
+  "name": "@liontech/gemini",
   "private": true,
   "description": "LionTechNYC frontend engineering stack with unobtrusive UI and UX support",
   "version": "0.1.0",
@@ -10,7 +10,7 @@
     "typescript",
     "frontend"
   ],
-  "license": "GPLv2",
+  "license": "GPL-2.0-only",
   "main": "build/index.js",
   "module": "build/index.es.js",
   "files": [
@@ -73,5 +73,9 @@
   },
   "resolutions": {
     "styled-components": "^5"
+  },
+  "dependencies": {},
+  "directories": {
+    "example": "examples"
   }
 }

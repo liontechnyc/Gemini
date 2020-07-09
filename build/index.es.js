@@ -1,4 +1,18 @@
-import React, { createElement, useRef, useDebugValue, useContext } from 'react';
+import React, { useRef, createElement, useDebugValue, useContext, useState, useLayoutEffect } from 'react';
+import { createMedia } from '@artsy/fresnel';
+import 'react-dom';
+
+var AppMedia = createMedia({
+    breakpoints: {
+        sm: 0,
+        md: 768,
+        lg: 1024,
+        xl: 1192,
+    },
+});
+var MediaContextProvider = AppMedia.MediaContextProvider, Media = AppMedia.Media;
+// Generate CSS to be injected into the head
+var mediaStyle = AppMedia.createMediaStyle();
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -30,61 +44,6 @@ function __makeTemplateObject(cooked, raw) {
     if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
     return cooked;
 }
-
-var Content = function (_a) {
-    var title = _a.title, subtitle = _a.subtitle, description = _a.description, alignTitle = _a.alignTitle, alignContent = _a.alignContent, titleClass = _a.titleClass, contentClass = _a.contentClass, containerClass = _a.containerClass, containerStyle = _a.containerStyle, children = _a.children;
-    var wrapperStyle = __assign({ display: 'block' }, containerStyle);
-    var titleStyle = {
-        textAlign: alignTitle || 'left',
-    };
-    var contentStyle = {
-        textAlign: alignContent || 'left',
-    };
-    return (React.createElement("div", { className: containerClass, style: wrapperStyle },
-        title && (React.createElement(React.Fragment, null,
-            React.createElement("h3", { style: titleStyle, className: titleClass }, title),
-            subtitle && React.createElement("em", null, subtitle))),
-        React.createElement("div", { className: contentClass, style: contentStyle }, description ? React.createElement("p", null, description) : children)));
-};
-
-function mapDirectionToFlex(direction, reverse) {
-    var orientation = 'column';
-    if (direction === 'horizontal') {
-        orientation = 'row';
-    }
-    return {
-        flexDirection: reverse ? orientation + '-reverse' : orientation,
-    };
-}
-function mapAlignToFlex(align, direction) {
-    return align
-        ? {
-            // ? flip align axes based on direction
-            justifyContent: (direction === 'horizontal'
-                ? align.horizontal
-                : align.vertical) || 'start',
-            alignItems: (direction === 'horizontal'
-                ? align.vertical
-                : align.horizontal) || 'start',
-            alignContent: align.content || undefined,
-        }
-        : {
-            justifyContent: 'start',
-            alignItems: 'start',
-            alignContent: 'start',
-        };
-}
-/** Responsive 1-dimensional flex container */
-var Collection = function (_a) {
-    var renderAs = _a.renderAs, fluid = _a.fluid, direction = _a.direction, align = _a.align, reverse = _a.reverse, items = _a.items, containerStyle = _a.containerStyle, containerClass = _a.containerClass, itemStyle = _a.itemStyle, itemClass = _a.itemClass, emptyState = _a.emptyState;
-    var wrapperStyle = __assign(__assign(__assign({ display: 'flex', flex: Number(fluid) || undefined }, mapDirectionToFlex(direction, !!reverse)), mapAlignToFlex(align, direction)), containerStyle);
-    if (items instanceof Array) {
-        if (items.length > 0) {
-            return createElement(renderAs || 'div', { style: wrapperStyle, className: containerClass }, items.map(function (item, id) { return (React.createElement("div", { style: itemStyle, className: itemClass, key: id }, item)); }));
-        }
-    }
-    return emptyState || React.createElement(React.Fragment, null);
-};
 
 function createCommonjsModule(fn, basedir, module) {
 	return module = {
@@ -2708,6 +2667,108 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test' && 
   window['__styled-components-init__'] += 1;
 }
 
+var Context = React.createContext(null);
+var ModalProvider = function (_a) {
+    var children = _a.children;
+    var modalRef = useRef();
+    var _b = useState(), context = _b[0], setContext = _b[1];
+    // make sure re-render is triggered after initial
+    // render so that modalRef exists
+    useLayoutEffect(function () {
+        setContext(modalRef.current);
+    }, []);
+    return (React.createElement(React.Fragment, null,
+        React.createElement(Context.Provider, { value: context }, children),
+        React.createElement("div", { ref: modalRef })));
+};
+
+/** Wrap UX providers (SSR included) */
+var Provider = function (_a) {
+    var children = _a.children;
+    return (React.createElement(MediaContextProvider, null,
+        React.createElement(ModalProvider, null, children)));
+};
+
+var index$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  Provider: Provider,
+  View: Media,
+  mediaStyle: mediaStyle
+});
+
+var Block = function (_a) {
+    var renderAs = _a.renderAs, fluid = _a.fluid, centered = _a.centered, isBlockLike = _a.isBlockLike, inline = _a.inline, className = _a.className, style = _a.style, children = _a.children;
+    var wrapperStyle = {
+        display: isBlockLike
+            ? inline
+                ? 'inline-block'
+                : 'block'
+            : inline // ? default behavior is flex
+                ? 'inline-flex'
+                : 'flex',
+        flex: Number(fluid) || undefined,
+        justifyContent: centered ? 'center' : undefined,
+        alignItems: centered ? 'center' : undefined,
+        margin: isBlockLike && centered ? '0 auto' : undefined,
+    };
+    return createElement(renderAs || 'div', { className: className, style: __assign(__assign({}, wrapperStyle), style) }, children);
+};
+
+var Content = function (_a) {
+    var title = _a.title, subtitle = _a.subtitle, description = _a.description, alignTitle = _a.alignTitle, alignContent = _a.alignContent, titleClass = _a.titleClass, contentClass = _a.contentClass, containerClass = _a.containerClass, containerStyle = _a.containerStyle, children = _a.children;
+    var wrapperStyle = __assign({ display: 'block' }, containerStyle);
+    var titleStyle = {
+        textAlign: alignTitle || 'left',
+    };
+    var contentStyle = {
+        textAlign: alignContent || 'left',
+    };
+    return (React.createElement("div", { className: containerClass, style: wrapperStyle },
+        title && (React.createElement(React.Fragment, null,
+            React.createElement("h3", { style: titleStyle, className: titleClass }, title),
+            subtitle && React.createElement("em", null, subtitle))),
+        React.createElement("div", { className: contentClass, style: contentStyle }, description ? React.createElement("p", null, description) : children)));
+};
+
+function mapDirectionToFlex(direction, reverse) {
+    var orientation = 'column';
+    if (direction === 'horizontal') {
+        orientation = 'row';
+    }
+    return {
+        flexDirection: reverse ? orientation + '-reverse' : orientation,
+    };
+}
+function mapAlignToFlex(align, direction) {
+    return align
+        ? {
+            // ? flip align axes based on direction
+            justifyContent: (direction === 'horizontal'
+                ? align.horizontal
+                : align.vertical) || 'start',
+            alignItems: (direction === 'horizontal'
+                ? align.vertical
+                : align.horizontal) || 'start',
+            alignContent: align.content || undefined,
+        }
+        : {
+            justifyContent: 'start',
+            alignItems: 'start',
+            alignContent: 'start',
+        };
+}
+/** Responsive 1-dimensional flex container */
+var Collection = function (_a) {
+    var renderAs = _a.renderAs, fluid = _a.fluid, direction = _a.direction, align = _a.align, reverse = _a.reverse, items = _a.items, containerStyle = _a.containerStyle, containerClass = _a.containerClass, itemStyle = _a.itemStyle, itemClass = _a.itemClass, emptyState = _a.emptyState;
+    var wrapperStyle = __assign(__assign(__assign({ display: 'flex', flex: Number(fluid) || undefined }, mapDirectionToFlex(direction, !!reverse)), mapAlignToFlex(align, direction)), containerStyle);
+    if (items instanceof Array) {
+        if (items.length > 0) {
+            return createElement(renderAs || 'div', { style: wrapperStyle, className: containerClass }, items.map(function (item, id) { return (React.createElement("div", { style: itemStyle, className: itemClass, key: id }, item)); }));
+        }
+    }
+    return emptyState || React.createElement(React.Fragment, null);
+};
+
 /** Reduce template structure into CSS valid template syntax */
 function reduceLayout(layout) {
     var templateAreas = layout.reduce(function (template, layoutRow, cur) {
@@ -2773,5 +2834,5 @@ var Section = function (_a) {
     return (React.createElement(SectionContainer, { id: name, className: containerClass, style: containerStyle }, children));
 };
 
-export { Collection, Content, Design, Image, Section };
+export { Block, Collection, Content, Design, Image, Section, index$1 as UX };
 //# sourceMappingURL=index.es.js.map
