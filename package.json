@@ -1,7 +1,7 @@
 {
   "name": "@liontechnyc/gemini",
   "description": "An unobtrusive UI templating framework wrapping over CSS Grid/Flex optimized for minimal markup and responsive display",
-  "version": "1.0.1-1",
+  "version": "1.0.1-2",
   "author": "Ezra Singh <ezra@liontech.nyc>",
   "keywords": [
     "gatsby",
