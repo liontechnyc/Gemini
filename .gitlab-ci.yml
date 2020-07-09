@@ -24,6 +24,7 @@ test_node_latest:
 # Run tests w/ vulnerability patches on latest version of Node
 vuln_node_latest:
   stage: test
+  allow_failure: true
   only:
     refs:
       - master
@@ -52,6 +53,7 @@ test_node_lts:
 vuln_node_lts:
   image: node:lts
   stage: test
+  allow_failure: true
   only:
     refs:
       - master
