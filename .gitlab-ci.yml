@@ -21,8 +21,6 @@ test:
 
 # Publish package
 deploy:
-  dependencies:
-    - test
   only:
     refs:
       - master
