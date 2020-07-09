@@ -1,6 +1,10 @@
 # Test with latest node version
 image: node:latest
 
+stages:
+  - test
+  - publish
+
 # Cache dependencies
 cache:
   paths:
