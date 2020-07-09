@@ -6,6 +6,9 @@ cache:
   paths:
     - node_modules/
 
+variables:
+  NPM_TOKEN: $NPM_TOKEN
+
 # Run unit tests
 test:
   only:
@@ -13,7 +16,7 @@ test:
       - master
   before_script:
     # Install
-    - npm ci
+    - npm install
   script:
     # Run Jest in CI mode
     - npm test -- --ci
@@ -28,7 +31,7 @@ publish:
     # Build library
     - npm run build
     # Configure auth token access
-    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'>.npmrc
+    - echo '${NPM_TOKEN}' && echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'>.npmrc
   script:
     # Publish to NPM
     - npm publish --access public
