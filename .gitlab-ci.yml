@@ -9,16 +9,57 @@ cache:
 variables:
   NPM_TOKEN: $NPM_TOKEN
 
-# Run unit tests
-test:
+# Run unit tests w/ latest version of Node
+test_node_latest:
+  stage: test
   only:
     refs:
       - master
   before_script:
-    # Install
     - npm install
   script:
     # Run Jest in CI mode
+    - npm test -- --ci
+
+# Run tests w/ vulnerability patches on latest version of Node
+vuln_node_latest:
+  stage: test
+  only:
+    refs:
+      - master
+  before_script:
+    - npm install
+    # Run audit patch
+    - npm audit fix
+  script:
+    - npm test -- --ci
+
+
+
+# Run unit tests w/ latest stable release of Node
+test_node_lts:
+  image: node:lts
+  stage: test
+  only:
+    refs:
+      - master
+  before_script:
+    - npm install
+  script:
+    - npm test -- --ci
+
+# Run tests w/ vulnerability patches on latest stable release of Node
+vuln_node_lts:
+  image: node:lts
+  stage: test
+  only:
+    refs:
+      - master
+  before_script:
+    - npm install
+    # Run audit patch
+    - npm audit fix
+  script:
     - npm test -- --ci
 
 # Publish package
