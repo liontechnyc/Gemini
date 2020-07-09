@@ -22,9 +22,8 @@ test:
     - npm test -- --ci
 
 # Publish package
-deploy:
-  needs:
-    - test
+publish:
+  stage: deploy
   only:
     refs:
       - master
