@@ -28,5 +28,7 @@ publish:
     refs:
       - master
   script:
+    # Login to NPM
+    - npm login
     # Publish to NPM
     - npm publish --access public
