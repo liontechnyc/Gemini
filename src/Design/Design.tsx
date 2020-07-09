@@ -57,7 +57,7 @@ export function reduceGridTemplate(
   };
 }
 
-/** Responsive 2-dimensional container */
+/** 2-Dimensional Flex container for templating UI designs */
 const Design = ({
   layout,
   grid,

@@ -15,6 +15,7 @@ export interface ContentProps {
   children?: React.ReactNode;
 }
 
+/** A container for wrapping structured textual information */
 const Content = ({
   title,
   subtitle,

@@ -2,7 +2,7 @@ import React from 'react'
 import { MediaContextProvider } from './View';
 import { ModalProvider } from '../Modal/Modal';
 
-/** Wrap UX providers (SSR included) */
+/** Root context provider */
 const Provider = ({ children }: { children: React.ReactNode }) => {
     return (
       <MediaContextProvider>

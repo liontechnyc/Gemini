@@ -33,6 +33,7 @@ export interface ModalProps {
   children: React.ReactNode;
 }
 
+/** A container for wrapping overlays or popups */
 const Modal = ({ visible, popup, layer, children }: ModalProps) => {
   const modalNode = useContext(Context);
 

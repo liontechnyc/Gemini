@@ -12,6 +12,7 @@ export interface ImageProps {
   children?: React.ReactNode;
 }
 
+/** A container for wrapping images */
 const Image = ({
   src,
   defaultImg,

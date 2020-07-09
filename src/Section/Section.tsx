@@ -9,7 +9,7 @@ export interface SectionProps {
   children?: React.ReactNode;
 }
 
-/** Used to compose elements within Design grid */
+/** An organizational unit for templating with <Design/> */
 const Section = ({
   name,
   fluid,

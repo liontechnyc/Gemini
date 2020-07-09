@@ -69,7 +69,7 @@ function mapAlignToFlex(
       };
 }
 
-/** Responsive 1-dimensional flex container */
+/** 1-Dimensional Flex container to display item arrangements */
 const Collection = ({
   renderAs,
   fluid,

@@ -11,6 +11,7 @@ export interface BlockProps {
   children?: React.ReactNode;
 }
 
+/** A container for wrapping design elements */
 const Block = ({
   renderAs,
   fluid,
