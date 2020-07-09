@@ -1,0 +1,12 @@
+assets/
+.vscode/
+.storybook/
+.src/
+.gitlab-ci.yml
+.npmrc
+.prettierignore
+.prettierrc
+jest.config.js
+jest.setup.ts
+rollup.config.json
+tsconfig.json
