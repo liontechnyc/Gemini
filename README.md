@@ -1,6 +1,6 @@
 # Gemini
 
-![Gemini Logo](assets/logo.png)
+![Gemini Logo](https://github.com/liontechnyc/Gemini/raw/master/assets/logo.png)
 
 > _An unobtrusive UI templating framework wrapping over CSS Grid/Flex optimized for minimal markup and responsive display._
 
