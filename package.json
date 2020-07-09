@@ -76,5 +76,8 @@
   "dependencies": {},
   "directories": {
     "example": "examples"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
