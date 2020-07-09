@@ -1,0 +1,20 @@
+# Test with latest node version
+image: node:latest
+
+# Cache dependencies
+cache:
+  paths:
+    - node_modules/
+    - "$HOME/.npm"
+  
+
+# Run unit tests
+test:
+  only:
+    refs:
+      - master
+  script:
+    # Install
+    - npm ci
+    # Run Jest in CI mode
+    - npm test -- --ci
