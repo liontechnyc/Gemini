@@ -18,10 +18,10 @@
 | **`<UX.Provider/>`** | Root context provider                                                                                                               |
 | **`<UX.View/>`**     | Handles responsive switching; essentially a wrapper for [`@artsy/fresnel's`](https://github.com/artsy/fresnel) `<Media/>` component |
 
-### Usage
+## Example Usage
 
 ```typescript
-/** src/index.tsx */
+/** src/index.tsx -- Design Templating Example */
 import React from "react";
 import ReactDOM from "react-dom";
 import { UX, Design, Section } from "@liontech/gemini";
@@ -63,7 +63,7 @@ ReactDOM.render(Page, document.getElementById('root'));
 ```
 
 ```typescript
-/** src/components/MessageList */
+/** src/components/MessageLis.tsx -- Collection Example */
 import React from "react";
 import { Collection } from "@liontech/gemini";
 import MessageBlock from "./MessageBlock";
@@ -82,6 +82,13 @@ const MessageList = ({ messages }) => {
 
 /// ....
 ```
+
+### *Want More Examples?*
+
+View live use cases with **Storybook**:
+
+`npm run storybook`
+
 
 ## Development
 
