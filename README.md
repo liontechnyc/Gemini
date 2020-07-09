@@ -24,8 +24,8 @@
 /** src/index.tsx -- Design Templating Example */
 import React from "react";
 import ReactDOM from "react-dom";
-import { UX, Design, Section } from "@liontech/gemini";
-import { DesignProps } from "@liontech/gemini/Design/Design.d";
+import { UX, Design, Section } from "@liontechnyc/gemini";
+import { DesignProps } from "@liontechnyc/gemini/Design/Design.d";
 
 const design: DesignProps = {
     layout: [
@@ -65,7 +65,7 @@ ReactDOM.render(Page, document.getElementById('root'));
 ```typescript
 /** src/components/MessageLis.tsx -- Collection Example */
 import React from "react";
-import { Collection } from "@liontech/gemini";
+import { Collection } from "@liontechnyc/gemini";
 import MessageBlock from "./MessageBlock";
 
 const MessageList = ({ messages }) => {

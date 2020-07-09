@@ -1,5 +1,5 @@
 {
-  "name": "@liontech/gemini",
+  "name": "@liontechnyc/gemini",
   "description": "An unobtrusive UI templating framework wrapping over CSS Grid/Flex optimized for minimal markup and responsive display",
   "version": "1.0.0",
   "author": "Ezra Singh <ezra@liontech.nyc>",
