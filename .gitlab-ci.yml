@@ -5,7 +5,6 @@ image: node:latest
 cache:
   paths:
     - node_modules/
-    - "$HOME/.npm"
   
 variables:
   NPM_TOKEN: "$NPM_TOKEN"
@@ -15,9 +14,10 @@ test:
   only:
     refs:
       - master
-  script:
+  before_script:
     # Install
     - npm ci
+  script:
     # Run Jest in CI mode
     - npm test -- --ci
 
@@ -27,8 +27,11 @@ publish:
   only:
     refs:
       - master
+  before_script:
+    # Build library
+    - npm run build
+    # Configure auth token access
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'>.npmrc
   script:
-    # Login to NPM
-    - npm login
     # Publish to NPM
     - npm publish --access public
