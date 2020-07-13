@@ -23,6 +23,7 @@
     "lint-staged": "tslint \"src/**/*.{js,ts,tsx}\" --fix || prettier --write \"*/**/*.{js,json,md,scss}\"",
     "test": "jest --silent",
     "test:watch": "jest --watch --silent",
+    "publish": "storybook-to-ghpages",
     "type-check": "tsc --noEmit"
   },
   "repository": "github:liontechnyc/Gemini",
@@ -41,6 +42,7 @@
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@storybook/react": "^5.3.19",
+    "@storybook/storybook-deployer": "^2.8.6",
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.4",
     "@types/jest": "^26.0.4",

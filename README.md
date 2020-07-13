@@ -2,9 +2,13 @@
 
 ![Gemini Logo](https://github.com/liontechnyc/Gemini/raw/master/assets/logo.png)
 
-> _An unobtrusive UI templating framework wrapping over CSS Grid/Flex optimized for minimal markup and responsive display._
+> _An unobtrusive UI templating framework wrapping over CSS Grid and CSS Flex, optimized for minimal markup and responsive display._
 
 ### Summary
+
+```shell
+npm install @liontechnyc/gemini
+```
 
 | Component            | Description                                                                                                                         |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
