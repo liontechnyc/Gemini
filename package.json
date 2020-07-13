@@ -23,7 +23,7 @@
     "lint-staged": "tslint \"src/**/*.{js,ts,tsx}\" --fix || prettier --write \"*/**/*.{js,json,md,scss}\"",
     "test": "jest --silent",
     "test:watch": "jest --watch --silent",
-    "publish": "storybook-to-ghpages",
+    "publish": "storybook-to-ghpages --remote=github",
     "type-check": "tsc --noEmit"
   },
   "repository": "github:liontechnyc/Gemini",
