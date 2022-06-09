@@ -1,7 +1,7 @@
 {
   "name": "@liontechnyc/gemini",
   "description": "An unobtrusive UI templating framework wrapping over CSS Grid/Flex optimized for minimal markup and responsive display",
-  "version": "1.0.1-3",
+  "version": "1.0.2",
   "author": "Ezra Singh <ezra@liontech.nyc>",
   "keywords": [
     "gatsby",
@@ -37,7 +37,6 @@
     }
   },
   "devDependencies": {
-    "@artsy/fresnel": "^1.2.0",
     "@babel/core": "^7.10.4",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
@@ -54,8 +53,8 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.1.0",
     "node-sass": "^4.14.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "rollup": "^2.20.0",
     "rollup-plugin-peer-deps-external": "^2.2.3",
     "rollup-plugin-postcss": "^3.1.2",
@@ -66,9 +65,8 @@
     "typescript": "^3.9.6"
   },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0",
-    "@artsy/fresnel": ">=1.2.0"
+    "react": ">=18.1.0",
+    "react-dom": ">=18.1.0"
   },
   "resolutions": {
     "styled-components": "^5"

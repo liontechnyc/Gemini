@@ -2,5 +2,10 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.tslint": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#3D2A15",
+    "titleBar.activeBackground": "#553A1E",
+    "titleBar.activeForeground": "#FDFBF9"
+  }
 }
