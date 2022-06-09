@@ -6,20 +6,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var React = require('react');
 var React__default = _interopDefault(React);
-var fresnel = require('@artsy/fresnel');
 var ReactDOM = _interopDefault(require('react-dom'));
-
-var AppMedia = fresnel.createMedia({
-    breakpoints: {
-        sm: 0,
-        md: 768,
-        lg: 1024,
-        xl: 1192,
-    },
-});
-var MediaContextProvider = AppMedia.MediaContextProvider, Media = AppMedia.Media;
-// Generate CSS to be injected into the head
-var mediaStyle = AppMedia.createMediaStyle();
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -51,6 +38,81 @@ function __makeTemplateObject(cooked, raw) {
     if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
     return cooked;
 }
+
+/** A container for wrapping design elements */
+var Block = function (_a) {
+    var renderAs = _a.renderAs, fluid = _a.fluid, centered = _a.centered, isBlockLike = _a.isBlockLike, inline = _a.inline, className = _a.className, style = _a.style, children = _a.children;
+    var wrapperStyle = {
+        display: isBlockLike
+            ? inline
+                ? 'inline-block'
+                : 'block'
+            : inline // ? default behavior is flex
+                ? 'inline-flex'
+                : 'flex',
+        flex: Number(fluid) || undefined,
+        justifyContent: centered ? 'center' : undefined,
+        alignItems: centered ? 'center' : undefined,
+        margin: isBlockLike && centered ? '0 auto' : undefined,
+    };
+    return React.createElement(renderAs || 'div', { className: className, style: __assign(__assign({}, wrapperStyle), style) }, children);
+};
+
+function mapDirectionToFlex(direction, reverse) {
+    var orientation = 'column';
+    if (direction === 'horizontal') {
+        orientation = 'row';
+    }
+    return {
+        flexDirection: reverse ? orientation + '-reverse' : orientation,
+    };
+}
+function mapAlignToFlex(align, direction) {
+    return align
+        ? {
+            // ? flip align axes based on direction
+            justifyContent: (direction === 'horizontal'
+                ? align.horizontal
+                : align.vertical) || 'start',
+            alignItems: (direction === 'horizontal'
+                ? align.vertical
+                : align.horizontal) || 'start',
+            alignContent: align.content || undefined,
+        }
+        : {
+            justifyContent: 'start',
+            alignItems: 'start',
+            alignContent: 'start',
+        };
+}
+/** 1-Dimensional Flex container to display item arrangements */
+var Collection = function (_a) {
+    var renderAs = _a.renderAs, fluid = _a.fluid, direction = _a.direction, align = _a.align, reverse = _a.reverse, items = _a.items, containerStyle = _a.containerStyle, containerClass = _a.containerClass, itemStyle = _a.itemStyle, itemClass = _a.itemClass, emptyState = _a.emptyState;
+    var wrapperStyle = __assign(__assign(__assign({ display: 'flex', flex: Number(fluid) || undefined }, mapDirectionToFlex(direction, !!reverse)), mapAlignToFlex(align, direction)), containerStyle);
+    if (items instanceof Array) {
+        if (items.length > 0) {
+            return React.createElement(renderAs || 'div', { style: wrapperStyle, className: containerClass }, items.map(function (item, id) { return (React__default.createElement("div", { style: itemStyle, className: itemClass, key: id }, item)); }));
+        }
+    }
+    return emptyState || React__default.createElement(React__default.Fragment, null);
+};
+
+/** A container for wrapping structured textual information */
+var Content = function (_a) {
+    var title = _a.title, subtitle = _a.subtitle, description = _a.description, alignTitle = _a.alignTitle, alignContent = _a.alignContent, titleClass = _a.titleClass, contentClass = _a.contentClass, containerClass = _a.containerClass, containerStyle = _a.containerStyle, children = _a.children;
+    var wrapperStyle = __assign({ display: 'block' }, containerStyle);
+    var titleStyle = {
+        textAlign: alignTitle || 'left',
+    };
+    var contentStyle = {
+        textAlign: alignContent || 'left',
+    };
+    return (React__default.createElement("div", { className: containerClass, style: wrapperStyle },
+        title && (React__default.createElement(React__default.Fragment, null,
+            React__default.createElement("h3", { style: titleStyle, className: titleClass }, title),
+            subtitle && React__default.createElement("em", null, subtitle))),
+        React__default.createElement("div", { className: contentClass, style: contentStyle }, description ? React__default.createElement("p", null, description) : children)));
+};
 
 function createCommonjsModule(fn, basedir, module) {
 	return module = {
@@ -2674,120 +2736,6 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test' && 
   window['__styled-components-init__'] += 1;
 }
 
-var Context = React__default.createContext(null);
-var ModalProvider = function (_a) {
-    var children = _a.children;
-    var modalRef = React.useRef();
-    var _b = React.useState(), context = _b[0], setContext = _b[1];
-    // make sure re-render is triggered after initial
-    // render so that modalRef exists
-    React.useLayoutEffect(function () {
-        setContext(modalRef.current);
-    }, []);
-    return (React__default.createElement(React__default.Fragment, null,
-        React__default.createElement(Context.Provider, { value: context }, children),
-        React__default.createElement("div", { ref: modalRef })));
-};
-/** A container for wrapping overlays or popups */
-var Modal = function (_a) {
-    var visible = _a.visible, popup = _a.popup, layer = _a.layer, children = _a.children;
-    var modalNode = React.useContext(Context);
-    var Container = styled.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    display: ", ";\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: ", ";\n    justify-content: ", ";\n    align-items: ", ";\n  "], ["\n    display: ", ";\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: ", ";\n    justify-content: ", ";\n    align-items: ", ";\n  "])), visible ? 'flex' : 'none', layer || 100, popup ? 'center' : 'initial', popup ? 'center' : 'initial');
-    return modalNode && visible
-        ? ReactDOM.createPortal(React__default.createElement(Container, null, children), modalNode)
-        : null;
-};
-var templateObject_1;
-
-/** Root context provider */
-var Provider = function (_a) {
-    var children = _a.children;
-    return (React__default.createElement(MediaContextProvider, null,
-        React__default.createElement(ModalProvider, null, children)));
-};
-
-var index$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  Provider: Provider,
-  View: Media,
-  mediaStyle: mediaStyle
-});
-
-/** A container for wrapping design elements */
-var Block = function (_a) {
-    var renderAs = _a.renderAs, fluid = _a.fluid, centered = _a.centered, isBlockLike = _a.isBlockLike, inline = _a.inline, className = _a.className, style = _a.style, children = _a.children;
-    var wrapperStyle = {
-        display: isBlockLike
-            ? inline
-                ? 'inline-block'
-                : 'block'
-            : inline // ? default behavior is flex
-                ? 'inline-flex'
-                : 'flex',
-        flex: Number(fluid) || undefined,
-        justifyContent: centered ? 'center' : undefined,
-        alignItems: centered ? 'center' : undefined,
-        margin: isBlockLike && centered ? '0 auto' : undefined,
-    };
-    return React.createElement(renderAs || 'div', { className: className, style: __assign(__assign({}, wrapperStyle), style) }, children);
-};
-
-function mapDirectionToFlex(direction, reverse) {
-    var orientation = 'column';
-    if (direction === 'horizontal') {
-        orientation = 'row';
-    }
-    return {
-        flexDirection: reverse ? orientation + '-reverse' : orientation,
-    };
-}
-function mapAlignToFlex(align, direction) {
-    return align
-        ? {
-            // ? flip align axes based on direction
-            justifyContent: (direction === 'horizontal'
-                ? align.horizontal
-                : align.vertical) || 'start',
-            alignItems: (direction === 'horizontal'
-                ? align.vertical
-                : align.horizontal) || 'start',
-            alignContent: align.content || undefined,
-        }
-        : {
-            justifyContent: 'start',
-            alignItems: 'start',
-            alignContent: 'start',
-        };
-}
-/** 1-Dimensional Flex container to display item arrangements */
-var Collection = function (_a) {
-    var renderAs = _a.renderAs, fluid = _a.fluid, direction = _a.direction, align = _a.align, reverse = _a.reverse, items = _a.items, containerStyle = _a.containerStyle, containerClass = _a.containerClass, itemStyle = _a.itemStyle, itemClass = _a.itemClass, emptyState = _a.emptyState;
-    var wrapperStyle = __assign(__assign(__assign({ display: 'flex', flex: Number(fluid) || undefined }, mapDirectionToFlex(direction, !!reverse)), mapAlignToFlex(align, direction)), containerStyle);
-    if (items instanceof Array) {
-        if (items.length > 0) {
-            return React.createElement(renderAs || 'div', { style: wrapperStyle, className: containerClass }, items.map(function (item, id) { return (React__default.createElement("div", { style: itemStyle, className: itemClass, key: id }, item)); }));
-        }
-    }
-    return emptyState || React__default.createElement(React__default.Fragment, null);
-};
-
-/** A container for wrapping structured textual information */
-var Content = function (_a) {
-    var title = _a.title, subtitle = _a.subtitle, description = _a.description, alignTitle = _a.alignTitle, alignContent = _a.alignContent, titleClass = _a.titleClass, contentClass = _a.contentClass, containerClass = _a.containerClass, containerStyle = _a.containerStyle, children = _a.children;
-    var wrapperStyle = __assign({ display: 'block' }, containerStyle);
-    var titleStyle = {
-        textAlign: alignTitle || 'left',
-    };
-    var contentStyle = {
-        textAlign: alignContent || 'left',
-    };
-    return (React__default.createElement("div", { className: containerClass, style: wrapperStyle },
-        title && (React__default.createElement(React__default.Fragment, null,
-            React__default.createElement("h3", { style: titleStyle, className: titleClass }, title),
-            subtitle && React__default.createElement("em", null, subtitle))),
-        React__default.createElement("div", { className: contentClass, style: contentStyle }, description ? React__default.createElement("p", null, description) : children)));
-};
-
 /** Reduce template structure into CSS valid template syntax */
 function reduceLayout(layout) {
     var templateAreas = layout.reduce(function (template, layoutRow, cur) {
@@ -2829,7 +2777,7 @@ var Design = function (_a) {
 /** A container for wrapping images */
 var Image = function (_a) {
     var src = _a.src, defaultImg = _a.defaultImg, square = _a.square, width = _a.width, height = _a.height, caption = _a.caption, children = _a.children;
-    var ImageContainer = styled.figure(templateObject_1$1 || (templateObject_1$1 = __makeTemplateObject(["\n    display: block;\n    position: relative;\n  "], ["\n    display: block;\n    position: relative;\n  "])));
+    var ImageContainer = styled.figure(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    display: block;\n    position: relative;\n  "], ["\n    display: block;\n    position: relative;\n  "])));
     var ImageWrapper = styled.img(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    display: block;\n    position: relative;\n  "], ["\n    display: block;\n    position: relative;\n  "])));
     var imageStyle = {
         width: width ? width + 'px' : '100%',
@@ -2841,7 +2789,19 @@ var Image = function (_a) {
         React__default.createElement(ImageWrapper, __assign({ src: defaultImg, style: imageStyle }, { height: height, width: width })),
         React__default.createElement("figcaption", null, caption ? React__default.createElement("p", null, caption) : children)));
 };
-var templateObject_1$1, templateObject_2;
+var templateObject_1, templateObject_2;
+
+var Context = React__default.createContext(null);
+/** A container for wrapping overlays or popups */
+var Modal = function (_a) {
+    var visible = _a.visible, popup = _a.popup, layer = _a.layer, children = _a.children;
+    var modalNode = React.useContext(Context);
+    var Container = styled.div(templateObject_1$1 || (templateObject_1$1 = __makeTemplateObject(["\n    display: ", ";\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: ", ";\n    justify-content: ", ";\n    align-items: ", ";\n  "], ["\n    display: ", ";\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: ", ";\n    justify-content: ", ";\n    align-items: ", ";\n  "])), visible ? 'flex' : 'none', layer || 100, popup ? 'center' : 'initial', popup ? 'center' : 'initial');
+    return modalNode && visible
+        ? ReactDOM.createPortal(React__default.createElement(Container, null, children), modalNode)
+        : null;
+};
+var templateObject_1$1;
 
 /** An organizational unit for templating with <Design/> */
 var Section = function (_a) {
@@ -2861,5 +2821,4 @@ exports.Design = Design;
 exports.Image = Image;
 exports.Modal = Modal;
 exports.Section = Section;
-exports.UX = index$1;
 //# sourceMappingURL=index.js.map
